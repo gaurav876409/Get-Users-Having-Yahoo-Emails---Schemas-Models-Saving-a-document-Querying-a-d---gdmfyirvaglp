@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 var users   =require("../models/user.js");
 
 
-const url = process.env.DATABASE_URL || "mongodb://localhost/users";
-mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log('connected to DB')
-})
+// const url = process.env.DATABASE_URL || "mongodb://localhost/users";
+// mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log('connected to DB')
+// })
 
 //Router Middlewares
 app.use(express.json());
@@ -18,13 +18,19 @@ app.use(express.json());
 app.get("/",async function(req,res){
 
     // ids = [];
-    try{
-        const userWithYahooMail = await users.find({email: {$regex: "/@yahoo\.com$/i"}}, {_id: 1});
-        const ids = userWithYahooMail.map(user => user._id);
-        res.send(ids);
-    } catch (error){
-        res.status(500).send("Error");
-    }
+    const Users = await users.find({
+        email: {
+          $regex: '^.*@yahoo.com$',
+          $options: 'i',
+        },
+      });
+    
+      const ids = [];
+      for (const user of Users) {
+        ids.push(user._id);
+      }
+    
+      res.json({ ids });
 
     //Complete Your code here
 
