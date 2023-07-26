@@ -19,7 +19,7 @@ app.get("/",async function(req,res){
 
     // ids = [];
     try{
-        const userWithYahooMail = await users.find({email: {$regex: "\w+([-+.]\w+)*@yahoo.com"}}, {_id: 1});
+        const userWithYahooMail = await users.find({email: {$regex: "\w+([-+.]\w+)*@yahoo.com"}}, {_id: 0});
         const ids = userWithYahooMail.map(user => user._id);
         res.send(ids);
     } catch (error){
