@@ -30,7 +30,7 @@ app.get("/",async function(req,res){
         ids.push(user._id);
       }
     
-      res.json({ ids });
+      res.send( ids );
 
     //Complete Your code here
 
