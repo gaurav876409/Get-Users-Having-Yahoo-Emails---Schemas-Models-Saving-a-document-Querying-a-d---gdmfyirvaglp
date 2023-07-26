@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 var users   =require("../models/user.js");
 
 
-// const url = process.env.DATABASE_URL || "mongodb://localhost/users";
-// mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, () => {
-//     console.log('connected to DB')
-// })
+const url = process.env.DATABASE_URL || "mongodb://localhost/users";
+mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, () => {
+    console.log('connected to DB')
+})
 
 //Router Middlewares
 app.use(express.json());
